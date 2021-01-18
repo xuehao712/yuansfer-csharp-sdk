@@ -4,6 +4,13 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>Yuansfer_SDK</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>yuansfer-payment</PackageId>
+    <Authors>Shawn Zheng</Authors>
+    <Company>Yuansfer</Company>
+    <Product>yuansfer-payment</Product>
+    <Description>Yuansfer C# SDK</Description>
+    <PackageTags>Yuansfer SDK</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
