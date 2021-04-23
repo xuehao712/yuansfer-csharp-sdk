@@ -7,6 +7,7 @@
  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
  <!-- <script src="${fileAddress}"></script> -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script src="https://uat-api.paylution.com/rest/widgets/transfer-methods/usr-046adb62-ab48-4b72-b782-495b054490fe/en.min.js"></script>
 
  <title>Application</title>
@@ -94,63 +95,63 @@
  <div id="TransferMethodUI"/>
  </body>
  <script>
-    if (/Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        document.body.style.width = "auto";
-        document.getElementById("yuansfer-logo").setAttribute("src","https://yuansfercom.sharepoint.com/sites/Yuansfer/Shared%20Documents/Products%20Resources/Brand%20Logos/Yuansfer%20Logo/512x512.png");
-        document.getElementById("yuansfer-logo").setAttribute("width","100px");
-    } else {
-        document.body.style.width = "1100px";
-        document.getElementById("yuansfer-logo").setAttribute("src","https://yuansfer1.oss-accelerate.aliyuncs.com/svg/yuansfer_new_logo.svg");
-        document.getElementById("yuansfer-logo").setAttribute("width","auto");
-    }
-    let authenticationToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c3ItMDQ2YWRiNjItYWI0OC00YjcyLWI3ODItNDk1YjA1NDQ5MGZlIiwiaWF0IjoxNjE5MTk0OTQ4LCJleHAiOjE2MTkxOTU1NDgsImF1ZCI6InBndS01M2I1OTk2YS02MzdkLTQ3ODMtYjg1NS01ZDdiOWUwNzZjNTYiLCJpc3MiOiJwcmctYzZmY2NhMGUtNDI3Zi00ZmMxLWJlZWYtMDYzMWZjOGIyMDMyIiwicmVzdC11cmkiOiJodHRwczovL3VhdC1hcGkucGF5bHV0aW9uLmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly91YXQtYXBpLnBheWx1dGlvbi5jb20vZ3JhcGhxbCIsImluc2lnaHRzLXVyaSI6Imh0dHBzOi8vYXBpLnNhbmRib3gucGF5cGFsLmNvbSIsImVudmlyb25tZW50IjoiVUFUIiwicHJvZ3JhbS1tb2RlbCI6IkRJUkVDVF9ERVBPU0lUX01PREVMIn0._8FwZMgjiASH0qtWYAB-DGW8ynu_hw00ogazQGPl8Lp8_TumRUdHKOh9gG-_rh91agUG0eyedICAB3tYP8XUTg';
-    // function getAuthenticationToken(callback) {
-    //     $.ajax({
-    //         url: `https://mapi.yuansferdev.com/v1/customers/account/notify/{authenticationToken}`,
-    //         method: 'POST',
-    //         dataType: 'json',
-    //         beforeSend: function(xhrObj){
-    //             xhrObj.setRequestHeader("Content-Type","application/json");
-    //             xhrObj.setRequestHeader("Accept","application/json"); },
-    //           success: function( data, txtStatus, xhr ) {
-    //               console.log(data)
-    //               callback(data);
-    //           },
-    //           error: function(jqXHR, textStatus, errorThrown) {
-    //               console.log(jqXHR, textStatus, errorThrown);
-    //               callback(null, errorThrown);
-    //         }
-    //     });
-    // }
-    HWWidgets.initialize((onSuccess, onFailure) => {
-        // getAuthenticationToken((response) => {
-        //     onSuccess(response.value);
-        // });
-        onSuccess(authenticationToken);
-        onFailure((e)=>{
-            console.log(e);
-        })
-    });
-    HWWidgets.transferMethods.configure({
-        "template": "bootstrap3",
-        "el": document.getElementById("TransferMethodUI"),
-        "onComplete": function(trmObject, completionResult) {
-            // redirect payee to another page with the result and token
-
-            var token = trmObject.token;
-            var accountType = trmObject.type;
-            var host = document.getElementById("_host").value;
-            var storeNo = document.getElementById("_storeNo").value;
-            var merchantNo = document.getElementById("_merchantNo").value;
-            var customerNo = document.getElementById("_customerNo").value;
-            var accountToken = document.getElementById("_accountToken").value;
-            window.location = host + "?yuansferToken=" + token + "&accountType=" + accountType + "&merchantNo="
-                + merchantNo + "&storeNo=" + storeNo + "&customerNo=" + customerNo + "&accountToken=" + accountToken;
+    $(document).ready(function() {
+        if (/Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            $('body').css('width', 'auto');
+            $('#yuansfer-logo').prop("src","https://yuansfercom.sharepoint.com/sites/Yuansfer/Shared%20Documents/Products%20Resources/Brand%20Logos/Yuansfer%20Logo/512x512.png");
+            $('#yuansfer-logo').width("100px")
+        } else {
+            $('body').css('width', '1100px');
+            $('#yuansfer-logo').prop("src","https://yuansfer1.oss-accelerate.aliyuncs.com/svg/yuansfer_new_logo.svg");
+            $('#yuansfer-logo').width("auto")
         }
-    }).display(function () {
-        // widget.create()
-        //this is a callback event called when display is done
+        let authenticationToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c3ItMDQ2YWRiNjItYWI0OC00YjcyLWI3ODItNDk1YjA1NDQ5MGZlIiwiaWF0IjoxNjE5MTk0OTQ4LCJleHAiOjE2MTkxOTU1NDgsImF1ZCI6InBndS01M2I1OTk2YS02MzdkLTQ3ODMtYjg1NS01ZDdiOWUwNzZjNTYiLCJpc3MiOiJwcmctYzZmY2NhMGUtNDI3Zi00ZmMxLWJlZWYtMDYzMWZjOGIyMDMyIiwicmVzdC11cmkiOiJodHRwczovL3VhdC1hcGkucGF5bHV0aW9uLmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly91YXQtYXBpLnBheWx1dGlvbi5jb20vZ3JhcGhxbCIsImluc2lnaHRzLXVyaSI6Imh0dHBzOi8vYXBpLnNhbmRib3gucGF5cGFsLmNvbSIsImVudmlyb25tZW50IjoiVUFUIiwicHJvZ3JhbS1tb2RlbCI6IkRJUkVDVF9ERVBPU0lUX01PREVMIn0._8FwZMgjiASH0qtWYAB-DGW8ynu_hw00ogazQGPl8Lp8_TumRUdHKOh9gG-_rh91agUG0eyedICAB3tYP8XUTg';
+        // function getAuthenticationToken(callback) {
+        //     $.ajax({
+        //         url: `https://mapi.yuansferdev.com/v1/customers/account/notify/{authenticationToken}`,
+        //         method: 'POST',
+        //         dataType: 'json',
+        //         beforeSend: function(xhrObj){
+        //             xhrObj.setRequestHeader("Content-Type","application/json");
+        //             xhrObj.setRequestHeader("Accept","application/json"); },
+        //           success: function( data, txtStatus, xhr ) {
+        //               console.log(data)
+        //               callback(data);
+        //           },
+        //           error: function(jqXHR, textStatus, errorThrown) {
+        //               console.log(jqXHR, textStatus, errorThrown);
+        //               callback(null, errorThrown);
+        //         }
+        //     });
+        // }
+        HWWidgets.initialize((onSuccess, onFailure) => {
+            // getAuthenticationToken((response) => {
+            //     onSuccess(response.value);
+            // });
+            onSuccess(authenticationToken);
+            onFailure((e)=>{
+                console.log(e);
+            })
+        });
+        HWWidgets.transferMethods.configure({
+            "template": "bootstrap3",
+            "el": document.getElementById("TransferMethodUI"),
+            "onComplete": function(trmObject, completionResult) {
+                // redirect payee to another page with the result and token
+
+                var token = trmObject.token;
+                var accountType = trmObject.type;
+                var host = document.getElementById("_host").value;
+                var storeNo = document.getElementById("_storeNo").value;
+                var merchantNo = document.getElementById("_merchantNo").value;
+                var customerNo = document.getElementById("_customerNo").value;
+                var accountToken = document.getElementById("_accountToken").value;
+                window.location = host + "?yuansferToken=" + token + "&accountType=" + accountType + "&merchantNo="
+                    + merchantNo + "&storeNo=" + storeNo + "&customerNo=" + customerNo + "&accountToken=" + accountToken;
+            }
+        }).display(function () {
+            // widget.create()
+            //this is a callback event called when display is done
+        });
     });
-
-
 </script>
