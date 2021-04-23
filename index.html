@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+ <link rel="shortcut icon" href="https://yuansfer1.oss-accelerate.aliyuncs.com/mer_upload/2613/b594c318e67c231a817ec0e562f70c75.ico" />
+ <meta charset="UTF-8">
+ <meta name="viewport"
+ content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <!-- <script src="${fileAddress}"></script> -->
+ <script src="https://uat-api.paylution.com/rest/widgets/transfer-methods/usr-046adb62-ab48-4b72-b782-495b054490fe/en.min.js"></script>
+
+ <title>Application</title>
+ <style>
+    body{
+        background-color: #f6fdff;
+        margin: 10px auto;
+        width: 1100px;
+    }
+    .logo{
+        margin: 10px 13px;
+        display: flex;
+        justify-content: space-between;
+        align-items : center;
+    }
+    fieldset{
+        border-radius: 4px;
+        border:1px solid #a5a5a5;
+    }
+    .hw-group-with-template{
+        padding: 5px 10px;
+    }
+    .hw-label {
+        min-width: 217px;
+        display: inline-block;
+    }
+    .form-group{
+        border-radius: 4px;
+        margin: 10px auto;
+    }
+    .form-control{
+        width: 290px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 4px;
+        padding: 1px 5px;
+        border: 1px solid #888;
+        outline: none;
+    }
+    select.form-control{
+        margin: 0;
+        padding: 0;
+        width: 302px;
+        height: 34px;
+        line-height: 34px;
+    }
+    .btn{
+        display: block;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        padding: 2px 26px;
+        margin: 10px auto;
+        color: #FFF;
+        box-sizing: initial;
+    }
+    .btn-primary{
+        background-color: #00e771;
+    }
+    .btn:focus {
+        outline: none;
+    }
+    .help-block{
+        color: tomato;
+        padding-left: 15px;
+        font-size: 12px;
+    }
+ </style>
+ </head>
+ <body>
+ <input type="hidden" id="_host" value="${gatewayUrl}"/>
+ <input type="hidden" id="_storeNo" value="${storeNo}"/>
+ <input type="hidden" id="_merchantNo" value="${merchantNo}"/>
+ <input type="hidden" id="_customerNo" value="${customerNo}"/>
+ <input type="hidden" id="_accountToken" value="${accountToken}"/>
+ <div class="logo">
+     <div class="yuansfer-logo">
+        <img id="yuansfer-logo" alt="">
+     </div>
+     <div class="merchant-logo">
+        <img width="225" src="https://yuansfer1.oss-accelerate.aliyuncs.com/svg/yuansfer_new_logo.svg" alt="" srcset="">
+     </div>
+ </div>
+ <div id="TransferMethodUI"/>
+ </body>
+ <script>
+    if (/Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        document.body.style.width = "auto";
+        document.getElementById("yuansfer-logo").setAttribute("src","https://yuansfercom.sharepoint.com/sites/Yuansfer/Shared%20Documents/Products%20Resources/Brand%20Logos/Yuansfer%20Logo/512x512.png");
+        document.getElementById("yuansfer-logo").setAttribute("width","100px");
+    } else {
+        document.body.style.width = "1100px";
+        document.getElementById("yuansfer-logo").setAttribute("src","https://yuansfer1.oss-accelerate.aliyuncs.com/svg/yuansfer_new_logo.svg");
+        document.getElementById("yuansfer-logo").setAttribute("width","auto");
+    }
+    let authenticationToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c3ItMDQ2YWRiNjItYWI0OC00YjcyLWI3ODItNDk1YjA1NDQ5MGZlIiwiaWF0IjoxNjE5MTk0OTQ4LCJleHAiOjE2MTkxOTU1NDgsImF1ZCI6InBndS01M2I1OTk2YS02MzdkLTQ3ODMtYjg1NS01ZDdiOWUwNzZjNTYiLCJpc3MiOiJwcmctYzZmY2NhMGUtNDI3Zi00ZmMxLWJlZWYtMDYzMWZjOGIyMDMyIiwicmVzdC11cmkiOiJodHRwczovL3VhdC1hcGkucGF5bHV0aW9uLmNvbS9yZXN0L3YzLyIsImdyYXBocWwtdXJpIjoiaHR0cHM6Ly91YXQtYXBpLnBheWx1dGlvbi5jb20vZ3JhcGhxbCIsImluc2lnaHRzLXVyaSI6Imh0dHBzOi8vYXBpLnNhbmRib3gucGF5cGFsLmNvbSIsImVudmlyb25tZW50IjoiVUFUIiwicHJvZ3JhbS1tb2RlbCI6IkRJUkVDVF9ERVBPU0lUX01PREVMIn0._8FwZMgjiASH0qtWYAB-DGW8ynu_hw00ogazQGPl8Lp8_TumRUdHKOh9gG-_rh91agUG0eyedICAB3tYP8XUTg';
+    // function getAuthenticationToken(callback) {
+    //     $.ajax({
+    //         url: `https://mapi.yuansferdev.com/v1/customers/account/notify/{authenticationToken}`,
+    //         method: 'POST',
+    //         dataType: 'json',
+    //         beforeSend: function(xhrObj){
+    //             xhrObj.setRequestHeader("Content-Type","application/json");
+    //             xhrObj.setRequestHeader("Accept","application/json"); },
+    //           success: function( data, txtStatus, xhr ) {
+    //               console.log(data)
+    //               callback(data);
+    //           },
+    //           error: function(jqXHR, textStatus, errorThrown) {
+    //               console.log(jqXHR, textStatus, errorThrown);
+    //               callback(null, errorThrown);
+    //         }
+    //     });
+    // }
+    HWWidgets.initialize((onSuccess, onFailure) => {
+        // getAuthenticationToken((response) => {
+        //     onSuccess(response.value);
+        // });
+        onSuccess(authenticationToken);
+        onFailure((e)=>{
+            console.log(e);
+        })
+    });
+    HWWidgets.transferMethods.configure({
+        "template": "bootstrap3",
+        "el": document.getElementById("TransferMethodUI"),
+        "onComplete": function(trmObject, completionResult) {
+            // redirect payee to another page with the result and token
+
+            var token = trmObject.token;
+            var accountType = trmObject.type;
+            var host = document.getElementById("_host").value;
+            var storeNo = document.getElementById("_storeNo").value;
+            var merchantNo = document.getElementById("_merchantNo").value;
+            var customerNo = document.getElementById("_customerNo").value;
+            var accountToken = document.getElementById("_accountToken").value;
+            window.location = host + "?yuansferToken=" + token + "&accountType=" + accountType + "&merchantNo="
+                + merchantNo + "&storeNo=" + storeNo + "&customerNo=" + customerNo + "&accountToken=" + accountToken;
+        }
+    }).display(function () {
+        // widget.create()
+        //this is a callback event called when display is done
+    });
+
+
+</script>
